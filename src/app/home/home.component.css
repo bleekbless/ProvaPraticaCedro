@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
+
+.jumbotron2{
+    height: 100vh;
+    margin: 0 !important;
+}
+
+.jumbotron2 > img{
+    display: block;
+    margin: 0 auto;
+}
+
+.jumbotron2 > h2{
+    padding-top: 10px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+}

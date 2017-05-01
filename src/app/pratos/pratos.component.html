@@ -1,0 +1,92 @@
+<div class="container">
+  <h2>Pratos</h2>
+  <div class="form-group row">
+    <div class="col-5">
+      <button class="btn btn-block btn-success" (click)="editando=false; modal1.show(); resetarValores()" [disabled]="restaurantes == 0">Cadastrar novo prato</button>
+      <app-modal #modal1>
+        
+          <div class="app-modal-header">
+            {{ !editando ? 'Cadastrar Prato' : 'Editar Prato'}}
+          </div>
+          <div class="app-modal-body">
+            <form #pratoForm="ngForm" (submit)="newPrato($event); modal1.hide()" id="pratoForm">
+              
+              <div class="form-group">
+                <label for="restaurante">Restaurante:</label>
+                <select class="form-control" id="restaurante" required [(ngModel)]="restauranteId" name="restaurante">
+                  <option [ngValue]="undefined" selected>Selecione um restaurante</option>
+                  <option *ngFor="let restaurante of restaurantes" [ngValue]="restaurante._id">{{restaurante.nome}}</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="nomePrato">Nome do Prato:</label>
+                  <input type="text" [(ngModel)]="nomePrato"
+                        class="form-control" 
+                        id="nomePrato"
+                        name="nomePrato"
+                        required>
+              </div>
+
+              <div class="form-group" class="col-md-5">
+                <label for="valorPrato">Valor do Prato:</label>
+                  <input type="number" [(ngModel)]="valor"
+                        class="form-control" 
+                        id="valorPrato"
+                        name="valorPrato"
+                        required>
+              </div>
+              </form>
+          </div>
+          <div class="app-modal-footer">
+            <button type="button" class="btn btn-default" (click)="modal1.hide()">Cancelar</button>
+            <button type="submit" class="btn btn-primary" form="pratoForm"  [disabled]="!pratoForm.form.valid">Salvar</button>          
+          </div>
+        
+      </app-modal>
+    </div>
+  </div>
+  <table *ngIf="present; else mensagem" class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Restaurante</th>
+        <th>Prato</th>        
+        <th>Preço</th>                        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prato of pratos">
+        
+        <td style="width:15px">
+          <button (click)="deletar(prato._id)" class="btn btn-danger">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+
+        <td style="width:15px">
+          <button class="btn btn-info" (click)="editar(prato); modal1.show()">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>  
+
+        <td>{{prato.restaurante.nome}}</td>
+        <td>{{prato.nome}}</td>
+        <td>{{prato.valor | currency:'BRL':true:'1.2-2'}}</td>                      
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #mensagem>
+    <div *ngIf="restaurantes.length == 0; else elseTemplate">
+      <div class="alert alert-danger" role="alert">
+        <strong>Sem restaurantes cadastrados!</strong> Cadastre um novo <a routerLink="restaurantes">restaurante</a>. 
+      </div>
+    </div>
+    <ng-template #elseTemplate>
+      <div class="alert alert-info" role="alert">
+        <strong>Sem pratos cadastrados!</strong> Cadastre um novo prato clicando no botão acima.
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

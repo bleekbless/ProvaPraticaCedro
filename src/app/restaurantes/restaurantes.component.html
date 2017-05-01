@@ -1,0 +1,65 @@
+
+<div class="container">
+  <h2>Restaurantes</h2>
+  <div class="form-group row">
+    <div class="col-5">
+      <input #input class="form-control" [disabled]="!present" placeholder="Buscar restaurante">
+    </div>
+    <div class="col-5">
+      <button class="btn btn-block btn-success" (click)="editando=false; modal1.show()">Cadastrar novo restaurante</button>
+      <app-modal #modal1>
+        <div class="app-modal-header">
+          {{editando ? 'Editar Restaurante' : 'Cadastrar Restaurante'}}
+        </div>
+        <div class="app-modal-body"> 
+          <form #restauranteForm="ngForm" id="restauranteForm" (submit)="addRestaurante($event); modal1.hide()">
+            <div class="form-group row">
+              <div class="col-12">
+                <input [(ngModel)]="nomeRestaurante"
+                      class="form-control" name="nome"
+                      placeholder="Nome restaurante" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="app-modal-footer">
+          <button type="button" class="btn btn-default" (click)="modal1.hide()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" form="restauranteForm" [disabled]="!restauranteForm.form.valid" >Salvar</button>          
+        </div>
+        
+      </app-modal>
+    </div>
+  </div>
+  <table *ngIf="present; else mensagem" class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Nome</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let restaurante of restaurantes | buscar: input.value">
+        
+        <td style="width:15px">
+          <button (click)="deletar(restaurante._id)" class="btn btn-danger">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+
+        <td style="width:15px">
+          <button class="btn btn-info" (click)="editar(restaurante); modal1.show()">
+            <i class="fa fa-edit"></i>
+          </button>
+        </td>  
+
+        <td>{{restaurante.nome}}</td>      
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #mensagem>
+    <div class="alert alert-info" role="alert">
+      <strong>Sem restaurantes cadastrados!</strong> Cadastre um novo restaurante clicando no botão acima.
+    </div>
+  </ng-template>
+</div>

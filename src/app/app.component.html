@@ -1,3 +1,33 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-danger">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="home" href="/home">SCR</a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" >
+        <a class="nav-link" routerLink="home" routerLinkActive="active" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="restaurantes" routerLinkActive="active" href="/restaurantes">Restaurantes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="pratos" routerLinkActive="active" href="/pratos">Pratos</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+<nav class="navbar fixed-bottom navbar-inverse bg-danger">
+  <div class="container">
+    <p class="navbar-text pull-left">© 2017 - Site Criado Por Paulo Lelis.</p>
+    
+    <a href="https://www.linkedin.com/in/paulo-lelis-00749375/" target="_blank" class="navbar-text btn btn-transparent pull-right">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-linkedin fa-stack-1x"></i>
+      </span>
+      Me siga no LinkedIn
+    </a>
+</div>
+</nav>
